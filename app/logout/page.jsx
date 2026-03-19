@@ -3,7 +3,7 @@ import AuthShell from "@/components/ui/AuthShell";
 import { requireUserSession } from "@/utils/session.util";
 
 export const metadata = {
-  title: "Logout | Feedback",
+  title: "Logout | Kodex Peer Reviews",
   description: "Log out of your current session.",
 };
 

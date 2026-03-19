@@ -5,8 +5,8 @@ import { getCurrentPendingVerification } from "@/utils/pendingVerification.util"
 import { getCurrentSession } from "@/utils/session.util";
 
 export const metadata = {
-  title: "Signup | Feedback",
-  description: "Create a new account for the feedback platform.",
+  title: "Signup | Kodex Peer Reviews",
+  description: "Create a new account for Kodex Peer Reviews.",
 };
 
 export default async function SignupPage() {

@@ -5,8 +5,8 @@ import { getCurrentPendingVerification } from "@/utils/pendingVerification.util"
 import { getCurrentSession } from "@/utils/session.util";
 
 export const metadata = {
-  title: "Login | Feedback",
-  description: "Log in to access the feedback platform.",
+  title: "Login | Kodex Peer Reviews",
+  description: "Log in to access Kodex Peer Reviews.",
 };
 
 export default async function LoginPage() {
@@ -25,7 +25,7 @@ export default async function LoginPage() {
     <AuthShell
       badge="Secure Access"
       title="Log in to continue"
-      description="Every page in this app is protected, so start by logging in."
+      description="Every page in Kodex Peer Reviews is protected, so start by logging in."
     >
       <LoginForm />
     </AuthShell>
