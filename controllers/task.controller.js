@@ -1,54 +1,48 @@
-import { NextResponse } from "next/server";
 import Task from "@/models/task.model";
+import ExpressError from "@/utils/ExpressError.util";
 
-export const getAllTasks = async () => {
-	const allTasks = await Task.find();
+export async function getAllTasks() {
+  const allTasks = await Task.find();
 
-	return NextResponse.json({
-		message: "Task fetched successfully",
-		data: allTasks,
-	});
-};
+  return {
+    message: "Tasks fetched successfully.",
+    data: allTasks,
+  };
+}
 
-export const createTask = async (req) => {
-	const body = await req.json();
+export async function createTask(req) {
+  const body = await req.json();
+  const { title, description_md, difficulty, tags, review } = body;
 
-	const { title, description_md, difficulty, tags, review } = body;
+  if (!title) {
+    throw new ExpressError("Title is required.", 400);
+  }
 
-	if (!title) {
-		return NextResponse.json(
-			{ message: "Title is required" },
-			{ status: 400 },
-		);
-	}
+  const newTask = await Task.create({
+    title,
+    description_md,
+    difficulty,
+    tags,
+    review,
+  });
 
-	const newTask = await Task.create({
-		title,
-		description_md,
-		difficulty,
-		tags,
-		review,
-	});
+  return {
+    statusCode: 201,
+    message: "Task created successfully.",
+    data: newTask,
+  };
+}
 
-	return NextResponse.json(
-		{
-			message: "Task created successfully",
-			data: newTask,
-		},
-		{ status: 201 },
-	);
-};
+export async function getSingleTask(req, { params }) {
+  const { id } = await params;
+  const task = await Task.findById(id);
 
-export const getSingleTask = async (req, { params }) => {
-	const { id } = params;
-	const task = await Task.findById(id);
+  if (!task) {
+    throw new ExpressError("Task not found.", 404);
+  }
 
-	if (!task) {
-		return NextResponse.json({ message: "Task not found" }, { status: 404 });
-	}
-
-	return NextResponse.json({
-		message: "Task fetched successfully",
-		data: task,
-	});
-};
+  return {
+    message: "Task fetched successfully.",
+    data: task,
+  };
+}

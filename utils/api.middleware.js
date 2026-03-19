@@ -1,20 +1,18 @@
-const apiHandler = (handler) => {
-	return async (req, context) => {
-		try {
-			const connectDB = (await import("@/lib/db")).default;
-			await connectDB();
+import connectDB from "@/utils/db";
+import { createSuccessResponse } from "@/utils/api.util";
+import wrapAsync from "@/utils/wrapAsync.util";
 
-			return await handler(req, context);
-		} catch (error) {
-			return Response.json(
-				{
-					success: false,
-					message: error.message || "Internal Server Error",
-				},
-				{ status: 500 },
-			);
-		}
-	};
+const apiHandler = (handler, options = {}) => {
+  const { connectDb = true } = options;
+
+  return wrapAsync(async (req, context) => {
+    if (connectDb) {
+      await connectDB();
+    }
+
+    const result = await handler(req, context);
+    return result instanceof Response ? result : createSuccessResponse(result);
+  });
 };
 
 export default apiHandler;

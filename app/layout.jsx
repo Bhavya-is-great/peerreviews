@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import AppToaster from "@/components/ui/AppToaster";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -12,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Project feedbacks",
-  description: "Created by some group of good people",
+  title: "Kodex Peer Reviews",
+  description: "Collaborative peer review platform for Kodex.",
 };
 
 export default function RootLayout({ children }) {
@@ -21,6 +22,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
+        <AppToaster />
       </body>
     </html>
   );
