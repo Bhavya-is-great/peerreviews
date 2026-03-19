@@ -393,7 +393,8 @@ Submission {
 {
   taskId,
   projectLink,
-  notes
+  repoLink,
+  message,
 }
 ```
 
@@ -468,3 +469,17 @@ Submission {
 * AI feedback (optional)
 
 ---
+
+
+# Work assign 
+Abhinay will make the homepage that includes the nav a hero and all the tasks listed
+
+sneha will make the tasks page where the .md file will be shown a submit task button and a view submission button and also a modal of submit taks asking for repo link live link and addtional info as text 
+
+Sharat will make the submission page where all the submission will be listed 
+
+Shashank lehara will make the backend part in that he have to make submissions part get and post both 
+
+abhinav will make the Tasks part get and post both 
+
+I will go for the whole admin and authentication part fullstack sololey
