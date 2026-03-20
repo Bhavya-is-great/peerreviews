@@ -158,3 +158,60 @@
   color: #fff7f2;
   font-weight: 700;
 }
+
+/* --- Shared OAuth & Separator Styles --- */
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 1.5rem 0;
+  color: #888;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.separator span {
+  margin: 0 10px;
+}
+
+.oauthStack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.googleButton {
+  background-color: #ffffff !important;
+  color: #1a202c !important;
+  border: 1px solid #e2e8f0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.githubButton {
+  background-color: #24292e !important;
+  color: #ffffff !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.googleButton:hover {
+  background-color: #f7fafc !important;
+}
+
+.githubButton:hover {
+  background-color: #1a1e22 !important;
+}

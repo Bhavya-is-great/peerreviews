@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { signIn } from "next-auth/react"; // 👈 NextAuth import
 import PasswordField from "@/components/ui/PasswordField";
 import styles from "@/components/ui/AuthForm.module.css";
 
@@ -23,6 +24,7 @@ export default function SignupForm() {
     },
   });
 
+  // Manual Signup Logic
   async function onSubmit(form) {
     try {
       const response = await fetch("/api/auth/signup", {
@@ -53,6 +55,15 @@ export default function SignupForm() {
       toast.error("Unable to create your account right now.");
     }
   }
+
+  // OAuth Handler (Exactly same as Login)
+  const handleOAuthLogin = async (provider) => {
+    try {
+      await signIn(provider, { callbackUrl: "/" });
+    } catch (error) {
+      toast.error(`Failed to signup with ${provider}`);
+    }
+  };
 
   return (
     <form className={styles.stack} onSubmit={handleSubmit(onSubmit)}>
@@ -110,6 +121,28 @@ export default function SignupForm() {
       <button className={styles.button} type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Creating account..." : "Create Account"}
       </button>
+
+      {/* --- OAuth Section --- */}
+      <div className={styles.separator}>
+        <span>OR</span>
+      </div>
+
+      <div className={styles.oauthStack}>
+        <button 
+          type="button" 
+          onClick={() => handleOAuthLogin("google")}
+          className={`${styles.button} ${styles.googleButton}`}
+        >
+          Sign up with Google
+        </button>
+        <button 
+          type="button" 
+          onClick={() => handleOAuthLogin("github")}
+          className={`${styles.button} ${styles.githubButton}`}
+        >
+          Sign up with GitHub
+        </button>
+      </div>
 
       <Link className={styles.link} href="/login">
         Already have an account?
