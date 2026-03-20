@@ -7,6 +7,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    avatar: {
+      type: String,
+      default: "https://res.cloudinary.com/demo/image/upload/d_avatar.png/avatar.png",
+    },
     email: {
       type: String,
       required: true,

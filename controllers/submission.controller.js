@@ -1,0 +1,64 @@
+import Submission from "@/models/submission.model";
+import ExpressError from "@/utils/ExpressError.util";
+
+// Create a new submission
+export async function createSubmission(req) {
+  const body = await req.json();
+  const { taskId, userId, projectLink, previewImages, notes } = body;
+
+  // Basic validation
+  if (!taskId || !userId || !projectLink) {
+    throw new ExpressError("Task ID, User ID, and Project Link are required.", 400);
+  }
+
+  const newSubmission = await Submission.create({
+    taskId,
+    userId,
+    projectLink,
+    previewImages: previewImages || [], 
+    notes,
+    likes: 0,
+    reviews: []
+  });
+
+  return {
+    statusCode: 201,
+    message: "Submission created successfully.",
+    data: newSubmission,
+  };
+}
+
+ // Get all submissions 
+export async function getAllSubmissions(req) {
+  const { searchParams } = new URL(req.url);
+  const taskId = searchParams.get("taskId");
+
+  const query = taskId ? { taskId } : {};
+  
+  const submissions = await Submission.find(query)
+    .populate("userId", "name avatar") 
+    .sort({ createdAt: -1 });
+
+  return {
+    message: "Submissions fetched successfully.",
+    data: submissions,
+  };
+}
+
+ //Get a single submission by ID
+export async function getSingleSubmission(req, { params }) {
+  const { id } = await params;
+  
+  const submission = await Submission.findById(id)
+    .populate("userId", "name avatar")
+    .populate("taskId", "title");
+
+  if (!submission) {
+    throw new ExpressError("Submission not found.", 404);
+  }
+
+  return {
+    message: "Submission detail fetched successfully.",
+    data: submission,
+  };
+}
