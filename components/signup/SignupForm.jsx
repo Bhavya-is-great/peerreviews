@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { signIn } from "next-auth/react"; // 👈 NextAuth import
+import { signIn } from "next-auth/react"; 
 import PasswordField from "@/components/ui/PasswordField";
 import styles from "@/components/ui/AuthForm.module.css";
 
@@ -24,7 +24,6 @@ export default function SignupForm() {
     },
   });
 
-  // Manual Signup Logic
   async function onSubmit(form) {
     try {
       const response = await fetch("/api/auth/signup", {
@@ -56,7 +55,6 @@ export default function SignupForm() {
     }
   }
 
-  // OAuth Handler (Exactly same as Login)
   const handleOAuthLogin = async (provider) => {
     try {
       await signIn(provider, { callbackUrl: "/" });

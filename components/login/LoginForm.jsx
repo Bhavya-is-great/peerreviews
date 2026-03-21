@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { signIn } from "next-auth/react"; // 👈 NextAuth import
+import { signIn } from "next-auth/react"; 
 import PasswordField from "@/components/ui/PasswordField";
 import styles from "@/components/ui/AuthForm.module.css";
 
@@ -21,7 +21,6 @@ export default function LoginForm() {
     },
   });
 
-  // Manual Login Logic (Bhavya's Logic)
   async function onSubmit(form) {
     try {
       const response = await fetch("/api/auth/login", {
@@ -53,10 +52,8 @@ export default function LoginForm() {
     }
   }
 
-  // OAuth Login Handler
   const handleOAuthLogin = async (provider) => {
     try {
-      // callbackUrl ka matlab hai login ke baad user kahan jaye
       await signIn(provider, { callbackUrl: "/" });
     } catch (error) {
       toast.error(`Failed to login with ${provider}`);
@@ -92,12 +89,10 @@ export default function LoginForm() {
           {isSubmitting ? "Logging in..." : "Log In"}
         </button>
 
-        {/* --- Separator --- */}
         <div className={styles.separator}>
           <span>OR</span>
         </div>
 
-        {/* --- OAuth Buttons --- */}
         <div className={styles.oauthStack}>
           <button 
             type="button"
