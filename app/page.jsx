@@ -1,9 +1,10 @@
 import React from 'react'
+import TestSession from './Testsession'
 
 const page = () => {
   return (
-    <div>
-      
+    <div style={{color:"white"}}>
+      <TestSession/>
     </div>
   )
 }

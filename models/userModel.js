@@ -7,6 +7,10 @@ const userSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    avatar: {
+      type: String,
+      default: "https://res.cloudinary.com/demo/image/upload/d_avatar.png/avatar.png",
+    },
     email: {
       type: String,
       required: true,
@@ -16,7 +20,7 @@ const userSchema = new mongoose.Schema(
     },
     passwordHash: {
       type: String,
-      required: true,
+      required:false,
     },
     role: {
       type: String,
@@ -26,6 +30,11 @@ const userSchema = new mongoose.Schema(
     isVerified: {
       type: Boolean,
       default: false,
+    },
+    provider: {
+      type: String,
+      enum: ["credentials", "google", "github"],
+      default: "credentials"
     },
     resetPasswordTokenHash: {
       type: String,
